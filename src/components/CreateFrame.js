@@ -18,13 +18,17 @@ class CreateFrame extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    this.setState({submitted: false})
-  }
-
   handleChange(e) {
     if(e.target.name === "image"){
       const image = e.target.files[0]
+      if(this.state.imageName!=='' && image.name!==this.state.imageName){
+        console.log("HI")
+        firebase.storage().ref(`frames/${this.state.imageName}`).delete().then(function() {
+          alert("FILE DELETED SUCCESSFULLY")
+        }).catch(function(error) {
+          alert("HUH", error)
+        })
+      }
       this.setState({imageName:image.name})
       this.fileSelectedHandler(image)
     } else {
@@ -82,17 +86,31 @@ class CreateFrame extends Component {
     if (this.state.submitted === true) {
         return <Redirect to="/" />
     }
+
+    const charLeft = 300 - this.state.message.length;
     return (
       <div className='createContainer'>
         <section className="add-item">
           <form onSubmit={this.handleSubmit}>
-            <input className="frameNameForm" type="text" name="name" placeholder="What's your name?" onChange={this.handleChange} value={this.state.name} />
+            <input className="frameNameForm" maxlength="30" type="text" name="name" placeholder="What's your name?" onChange={this.handleChange} value={this.state.name} />
             <br/>
-            <textarea className="frameMessageForm" name="message" cols="50" rows="10" maxLength="300" placeholder="What do you want your frame to say?" onChange={this.handleChange} value={this.state.message} />
+            <textarea className="frameMessageForm" name="message" cols="50" rows="7" maxLength="300" placeholder="What do you want your frame to say?" onChange={this.handleChange} value={this.state.message} />
+            <div className='char-length'>
+              {charLeft <= 100
+                ? <span>{charLeft} character(s) left</span>
+                : <span> </span>
+              }
+            </div>
+
             <br/>
             <input className="frameImageUploader" name="image" type="file" accept=".jpeg,.jpg,png" id="fileButton" onChange={this.handleChange}/>
             <br/>
-            {this.state.progress>0 && <progress className="progressBar" value={this.state.progress} max="100" id="uploader"></progress>}
+            {this.state.progress>0 && <progress className="progressBar" value={this.state.progress} max="100" id="uploader">this.state.progress</progress>}
+            {this.state.imageURL!=='' &&
+              <div>
+                <img className="frameImagePreview" src={this.state.imageURL}/>
+              </div>
+            }
             <button className="frameSubmitButton">Add Frame</button>
           </form>
         </section>

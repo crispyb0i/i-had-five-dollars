@@ -15,7 +15,7 @@ class Profile extends Component {
   render() {
     return (
       <div className='container'>
-        PROFILE
+        <h1 className='header'>PROFILE</h1>
       </div>
     )
   }

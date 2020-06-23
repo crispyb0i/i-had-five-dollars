@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import firebase from '../firebase.js'
+import { Redirect } from 'react-router-dom';
 
 class CreateFrame extends Component {
   constructor(){
@@ -11,35 +12,19 @@ class CreateFrame extends Component {
       imageURL: '',
       progress: 0,
       frames: [],
+      submitted: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-  const framesRef = firebase.database().ref('frames')
-  framesRef.on('value', (snapshot) => {
-    let frames = snapshot.val()
-    let newState = []
-    for (let frame in frames) {
-      newState.push({
-        id: frame,
-        name: frames[frame].name,
-        message: frames[frame].message,
-        imageName: frames[frame].imageName,
-        imageURL: frames[frame].imageURL
-      });
-    }
-    this.setState({
-      frames: newState
-    });
-  });
-}
+    this.setState({submitted: false})
+  }
 
   handleChange(e) {
     if(e.target.name === "image"){
       const image = e.target.files[0]
-      console.log(image.name)
       this.setState({imageName:image.name})
       this.fileSelectedHandler(image)
     } else {
@@ -47,7 +32,6 @@ class CreateFrame extends Component {
         [e.target.name]: e.target.value
       })
     }
-    console.log(this.state)
   }
 
   fileSelectedHandler = imageFile => {
@@ -61,7 +45,7 @@ class CreateFrame extends Component {
         this.setState({progress})
       },
       (error) => {
-
+        alert(error)
       },
       () => {
         firebase.storage().ref('frames').child(image.name).getDownloadURL().then(url => this.setState({imageURL:url}))
@@ -71,6 +55,10 @@ class CreateFrame extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
+    console.log(this.state)
+    if(this.state.progress!==100 || this.state.name ==='' || this.state.message === ''){
+      return alert("Please fill out all the forms")
+    }
     const framesRef = firebase.database().ref('frames')
     const frame = {
       imageName: this.state.imageName,
@@ -85,50 +73,28 @@ class CreateFrame extends Component {
       imageURL: '',
       name: '',
       message: '',
-      progress: 0
-    })
-  }
-
-  removeItem(frameId,imageName) {
-    const itemRef = firebase.database().ref(`/frames/${frameId}`);
-
-    const imageRef = firebase.storage().ref(`/frames/${imageName}`)
-    console.log(imageRef)
-    itemRef.remove()
-    imageRef.delete().then(function() {
-      alert("FILE DELETED SUCCESSFULLY")
-    }).catch(function(error) {
-      alert(error)
+      progress: 0,
+      submitted: true
     })
   }
 
   render() {
+    if (this.state.submitted === true) {
+        return <Redirect to="/" />
+    }
     return (
       <div className='createContainer'>
         <section className="add-item">
           <form onSubmit={this.handleSubmit}>
-            <progress value={this.state.progress} max="100" id="uploader"></progress>
-            <input name="image" type="file" accept=".jpeg,.jpg,png" id="fileButton" onChange={this.handleChange}/>
-            <input type="text" name="name" placeholder="What's your name?" onChange={this.handleChange} value={this.state.name} />
-            <textarea name="message" cols="50" rows="10" maxLength="300" placeholder="What do you want your frame to say?" onChange={this.handleChange} value={this.state.message} />
-            <button>Add Frame</button>
+            <input className="frameNameForm" type="text" name="name" placeholder="What's your name?" onChange={this.handleChange} value={this.state.name} />
+            <br/>
+            <textarea className="frameMessageForm" name="message" cols="50" rows="10" maxLength="300" placeholder="What do you want your frame to say?" onChange={this.handleChange} value={this.state.message} />
+            <br/>
+            <input className="frameImageUploader" name="image" type="file" accept=".jpeg,.jpg,png" id="fileButton" onChange={this.handleChange}/>
+            <br/>
+            {this.state.progress>0 && <progress className="progressBar" value={this.state.progress} max="100" id="uploader"></progress>}
+            <button className="frameSubmitButton">Add Frame</button>
           </form>
-        </section>
-        <section className='display-item'>
-          <div className="wrapper">
-            <ul>
-              {this.state.frames.map((frame) => {
-                return (
-                  <li key={frame.id}>
-                    <h3>{frame.name}</h3>
-                    <img style={{width:'400px'}} src={frame.imageURL} data={frame.image}/>
-                    <p>{frame.message}</p>
-                    <button onClick={() => this.removeItem(frame.id,frame.imageName)}>Remove Item</button>
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
         </section>
       </div>
     )

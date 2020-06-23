@@ -4,6 +4,17 @@
   margin: auto;
 }
 
+.add-item {
+  display: flex;
+  min-height: 50vh;
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .app {
   width: 80%;
   text-align: center;
@@ -11,7 +22,33 @@
 }
 
 .createContainer {
-  margin-top: -100px;
+  margin-top: -20px;
+}
+
+.display-frames {
+  margin: 80px 0;
+}
+
+.frameDiv li {
+  list-style-type: none;
+}
+
+.frameSubmitButton {
+  display: block;
+  text-align: center;
+  margin: 40px auto;
+}
+
+.frameImageUploader {
+  margin: 10px 0;
+}
+
+.frameMessageForm {
+  margin: 10px 0;
+}
+
+.frameNameForm {
+  margin: 20px 0;
 }
 
 .header {
@@ -24,12 +61,29 @@
   font-size: 5em;
 }
 
+.navItem {
+  margin: 0 20px;
+  font-size: 15px;
+  text-decoration: none;
+  color: black;
+}
+
+.progressBar {
+  margin: 20px 0;
+}
+
+.wrapper ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
 html {
   overflow-y: scroll;
 }
 
 nav {
-  width: 90%;
+  width: 80%;
   margin: auto;
 }
 nav ul {
@@ -43,9 +97,9 @@ nav ul {
 nav ul li {
   font-family: 'Oswald', sans-serif;
   font-size: 1.8em;
-  line-height: 40px;
-  height: 40px;
-  margin: 0 30px;
+  line-height: 60px;
+  height: 60px;
+  margin: 0 40px;
 }
 
 nav li:hover {
@@ -80,28 +134,9 @@ nav li {
   }
 
 
-.navItem {
-  margin: 0 20px;
-  font-size: 15px;
-  text-decoration: none;
-  color: black;
-}
-
-.add-item {
-  display: flex;
-  min-height: 50vh;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  align-items: center;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
 #uploader {
   -webkit-appearance: none;
   appearance: none;
-  width: 50%;
+  width: 100%;
   margin-bottom: 10px;
 }

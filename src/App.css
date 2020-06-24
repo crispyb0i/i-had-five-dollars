@@ -40,12 +40,44 @@
   margin: 40px 0;
 }
 
+.emptyPage {
+  font-size: 50px;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.frameContainer img {
+  width: 50%;
+  margin: auto;
+  display: block;
+}
+
+.frameContainer p {
+  text-align: center;
+}
+
 .frameDiv {
   width: 500px;
+  margin: 20px;
+  border: 1px solid black;
+  text-align: center;
+  cursor: default;
+}
+
+.frameDiv button {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.frameDiv h3 {
+  font-size: 30px;
+  margin: 5px;
 }
 
 .frameDiv li {
   list-style-type: none;
+  text-decoration: none;
+  display:contents;
 }
 
 .frameSubmitButton {
@@ -82,6 +114,30 @@
   font-size: 3em;
 }
 
+.homeWrapper a {
+  color: black;
+  text-decoration: none;
+}
+
+.homeWrapper ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.loginDiv {
+  text-align: center;
+}
+
+.loginDiv form label{
+  display: block;
+}
+
+.loginDiv form input{
+  font-size: 20px;
+  margin: 5px auto;
+}
+
 .logo {
   text-align: center;
   font-size: 5em;
@@ -98,10 +154,14 @@
   margin: 20px 0;
 }
 
-.wrapper ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+.signUpContainer {
+  text-align: center;
+}
+
+.signUpContainer form input {
+  font-size: 20px;
+  margin: 5px auto;
+  display: block;
 }
 
 html {

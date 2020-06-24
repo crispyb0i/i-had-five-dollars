@@ -59,7 +59,6 @@ class CreateFrame extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    console.log(this.state)
     if(this.state.progress!==100 || this.state.name ==='' || this.state.message === ''){
       return alert("Please fill out all the forms")
     }
@@ -92,23 +91,47 @@ class CreateFrame extends Component {
       <div className='createContainer'>
         <section className="add-item">
           <form onSubmit={this.handleSubmit}>
-            <input className="frameNameForm" maxlength="30" type="text" name="name" placeholder="What's your name?" onChange={this.handleChange} value={this.state.name} />
+            <input
+             className="frameNameForm"
+             maxlength="30"
+             type="text"
+             name="name"
+             autoComplete="off"
+             placeholder="What's your name?" onChange={this.handleChange}
+             value={this.state.name}
+            />
             <br/>
-            <textarea className="frameMessageForm" name="message" cols="50" rows="7" maxLength="300" placeholder="What do you want your frame to say?" onChange={this.handleChange} value={this.state.message} />
+            <textarea
+              className="frameMessageForm"
+              name="message"
+              cols="50"
+              rows="7"
+               maxLength="300"
+               placeholder="What do you want your frame to say?" onChange={this.handleChange} value={this.state.message}
+             />
             <div className='char-length'>
               {charLeft <= 100
                 ? <span>{charLeft} character(s) left</span>
                 : <span> </span>
               }
             </div>
-
             <br/>
-            <input className="frameImageUploader" name="image" type="file" accept=".jpeg,.jpg,png" id="fileButton" onChange={this.handleChange}/>
+            <input
+              className="frameImageUploader" 
+              name="image"
+              type="file"
+              accept=".jpeg,.jpg,png"
+              id="fileButton"
+              onChange={this.handleChange}
+            />
             <br/>
             {this.state.progress>0 && <progress className="progressBar" value={this.state.progress} max="100" id="uploader">this.state.progress</progress>}
             {this.state.imageURL!=='' &&
               <div>
-                <img className="frameImagePreview" src={this.state.imageURL}/>
+                <img
+                className="frameImagePreview" src={this.state.imageURL}
+                alt={this.state.imageName}
+                />
               </div>
             }
             <button className="frameSubmitButton">Add Frame</button>

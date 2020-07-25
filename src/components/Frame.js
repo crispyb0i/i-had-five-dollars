@@ -38,7 +38,7 @@ class Frame extends Component {
     return (
       <div className='frameContainer'>
         <h1 className='header'>{this.state.name}</h1>
-        <img src={this.state.imageURL}/>
+        <img alt={this.state.imageName} src={this.state.imageURL}/>
         <p>{this.state.message}</p>
       </div>
     )

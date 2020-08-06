@@ -1,0 +1,38 @@
+.display-frames {
+  margin: 40px 0;
+}
+
+.frameDiv {
+  width: 500px;
+  margin: 20px;
+  border: 1px solid black;
+  text-align: center;
+  cursor: default;
+}
+
+.frameDiv button {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.frameDiv h3 {
+  font-size: 30px;
+  margin: 5px;
+}
+
+.frameDiv li {
+  list-style-type: none;
+  text-decoration: none;
+  display:contents;
+}
+
+.homeWrapper a {
+  color: black;
+  text-decoration: none;
+}
+
+.homeWrapper ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}

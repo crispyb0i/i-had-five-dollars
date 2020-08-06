@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import firebase from '../firebase.js'
+import firebase from '../../firebase.js'
 import { Redirect } from 'react-router-dom';
+import './CreateFrame'
 
 class CreateFrame extends Component {
   constructor(){
@@ -117,7 +118,7 @@ class CreateFrame extends Component {
             </div>
             <br/>
             <input
-              className="frameImageUploader" 
+              className="frameImageUploader"
               name="image"
               type="file"
               accept=".jpeg,.jpg,png"
@@ -125,7 +126,7 @@ class CreateFrame extends Component {
               onChange={this.handleChange}
             />
             <br/>
-            {this.state.progress>0 && <progress className="progressBar" value={this.state.progress} max="100" id="uploader">this.state.progress</progress>}
+            {this.state.progress>0 && <progress className="progressBar uploader" value={this.state.progress} max="100" id="uploader">this.state.progress</progress>}
             {this.state.imageURL!=='' &&
               <div>
                 <img

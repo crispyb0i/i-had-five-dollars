@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import Home  from './Home'
-import Profile  from './Profile'
-import About  from './About'
-import CreateFrame from './CreateFrame'
-import PrivateRoute from './PrivateRoute'
-import Login from './Login'
-import SignUp from './SignUp'
-import Frame from './Frame'
+import Home  from '../Home/Home'
+import Profile  from '../Profile/Profile'
+import About  from '../About/About'
+import CreateFrame from '../CreateFrame/CreateFrame'
+import PrivateRoute from '../PrivateRoute/PrivateRoute'
+import Login from '../Login/Login'
+import SignUp from '../SignUp/SignUp'
+import Frame from '../Frame/Frame'
+import './Navbar.css'
 
 class Navbar extends Component {
   render(){

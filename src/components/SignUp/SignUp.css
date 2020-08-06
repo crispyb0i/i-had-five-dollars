@@ -1,0 +1,9 @@
+.signUpContainer {
+  text-align: center;
+}
+
+.signUpContainer form input {
+  font-size: 20px;
+  margin: 5px auto;
+  display: block;
+}

@@ -1,0 +1,65 @@
+.add-item {
+  display: flex;
+  min-height: 50vh;
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.char-length {
+  text-align: right;
+  margin-top: 0px;
+  font-size: 20px;
+  color: #C3392A;
+}
+
+.char-length span {
+  margin: 10px;
+}
+
+.createContainer {
+  margin-top: -20px;
+}
+
+.frameImagePreview {
+  margin-top: 50px;
+  width: 500px;
+}
+
+.frameImageUploader {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.frameMessageForm {
+  margin: 10px 0;
+  font-size: 20px;
+}
+
+.frameNameForm {
+  margin: 80px 0 20px 0;
+  font-size: 28px;
+  width: 100%;
+}
+
+.frameSubmitButton {
+  display: block;
+  text-align: center;
+  margin: 40px auto;
+  padding: 13px 28px;
+  font-size: 18px;
+}
+
+.progressBar {
+  margin: 20px 0;
+}
+
+.uploader {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  margin-bottom: 10px;
+}

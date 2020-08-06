@@ -1,0 +1,12 @@
+.loginDiv {
+  text-align: center;
+}
+
+.loginDiv form label{
+  display: block;
+}
+
+.loginDiv form input{
+  font-size: 20px;
+  margin: 5px auto;
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import firebase from '../firebase.js'
+import firebase from '../../firebase.js'
 import { Link } from 'react-router-dom'
+import './Home.css'
 
 class Home extends Component {
   constructor(){

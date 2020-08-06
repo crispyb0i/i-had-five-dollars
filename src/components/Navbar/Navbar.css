@@ -1,0 +1,62 @@
+.logo {
+  text-align: center;
+  font-size: 5em;
+}
+
+.navItem {
+  margin: 0 20px;
+  font-size: 15px;
+  text-decoration: none;
+  color: black;
+}
+
+nav {
+  width: 80%;
+  margin: auto;
+}
+nav ul {
+  list-style: none;
+  background-color: black;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.8em;
+  line-height: 60px;
+  height: 60px;
+  margin: 0 40px;
+}
+
+nav li:hover {
+  background-color: darkgray;
+}
+
+nav li .active {
+  background-color: #fff;
+  color: #444;
+  cursor: default;
+}
+
+nav a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  transition: .3s background-color;
+}
+
+@media screen and (min-width: 600px) {
+  nav li {
+    width: 120px;
+    border-bottom: none;
+    height: 50px;
+    line-height: 50px;
+    font-size: 1.4em;
+  }
+}
+
+nav li {
+    display: inline-block;
+  }

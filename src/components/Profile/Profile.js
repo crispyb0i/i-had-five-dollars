@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import firebaseConfig from '../firebase'
+import firebaseConfig from '../../firebase'
+import './Profile.css'
 
 class Profile extends Component {
   constructor(){

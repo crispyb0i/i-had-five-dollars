@@ -15,7 +15,6 @@ class Navbar extends Component {
     return (
       <Router>
         <div>
-          <h1 className='logo'>I HAD FIVE DOLLARS</h1>
           <nav className="navbar">
             <ul className="navbar-nav mr-auto">
               <li><Link to={'/'} className="nav-item"> Home </Link></li>

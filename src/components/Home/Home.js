@@ -55,26 +55,23 @@ class Home extends Component {
   render() {
     return (
       <div className='container'>
-      <section className='display-frames'>
-        <div className="homeWrapper">
-          <ul>
-            {this.state.frames.map((frame) => {
-              return (
-                <Link to={`/frame/${frame.id}`} key={frame.id}>
-                <div className="frameDiv">
-                    <li key={frame.id}>
-                    <h3>{frame.name}</h3>
-                    <img style={{width:'300px'}} src={frame.imageURL} data={frame.image} alt={this.state.imageName}/>
-                    <p>{frame.message}</p>
-                    <button onClick={() => this.removeItem(frame.id,frame.imageName)}>Remove Item</button>
-                    </li>
-                </div>
-                </Link>
-              )
-            })}
-          </ul>
-        </div>
-      </section>
+        <h1 className='logo'>I HAD FIVE DOLLARS</h1>
+        <ul>
+          {this.state.frames.map((frame) => {
+            return (
+              <Link to={`/frame/${frame.id}`} key={frame.id}>
+              <div className="frameDiv">
+                <li key={frame.id}>
+                  <h3>{frame.name}</h3>
+                  <img src={frame.imageURL} data={frame.image} alt={this.state.imageName}/>
+                  <p>{frame.message}</p>
+                  <button onClick={() => this.removeItem(frame.id,frame.imageName)}>Remove Item</button>
+                </li>
+              </div>
+              </Link>
+            )
+          })}
+        </ul>
       </div>
     )
   }

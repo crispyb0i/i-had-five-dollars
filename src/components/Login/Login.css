@@ -1,12 +1,28 @@
 .loginDiv {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   text-align: center;
 }
 
-.loginDiv form label{
+.loginDiv button {
+  height: 30px;
+  width: 80px;
+  margin: auto;
+  margin-top: 10px;
+}
+
+.loginDiv h1 {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.loginDiv input{
+  font-size: 20px;
+  margin: 5px auto;
   display: block;
 }
 
-.loginDiv form input{
-  font-size: 20px;
-  margin: 5px auto;
+.loginDiv form {
+  margin-bottom: 10px;
 }

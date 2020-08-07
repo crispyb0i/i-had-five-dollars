@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import firebase from '../../firebase.js'
 import { Redirect } from 'react-router-dom';
-import './CreateFrame'
+import './CreateFrame.css'
 
 class CreateFrame extends Component {
   constructor(){
@@ -90,54 +90,52 @@ class CreateFrame extends Component {
     const charLeft = 300 - this.state.message.length;
     return (
       <div className='createContainer'>
-        <section className="add-item">
-          <form onSubmit={this.handleSubmit}>
-            <input
-             className="frameNameForm"
-             maxlength="30"
-             type="text"
-             name="name"
-             autoComplete="off"
-             placeholder="What's your name?" onChange={this.handleChange}
-             value={this.state.name}
-            />
-            <br/>
-            <textarea
-              className="frameMessageForm"
-              name="message"
-              cols="50"
-              rows="7"
-               maxLength="300"
-               placeholder="What do you want your frame to say?" onChange={this.handleChange} value={this.state.message}
-             />
-            <div className='char-length'>
-              {charLeft <= 100
-                ? <span>{charLeft} character(s) left</span>
-                : <span> </span>
-              }
-            </div>
-            <br/>
-            <input
-              className="frameImageUploader"
-              name="image"
-              type="file"
-              accept=".jpeg,.jpg,png"
-              id="fileButton"
-              onChange={this.handleChange}
-            />
-            <br/>
-            {this.state.progress>0 && <progress className="progressBar uploader" value={this.state.progress} max="100" id="uploader">this.state.progress</progress>}
-            {this.state.imageURL!=='' &&
-              <div>
-                <img
-                className="frameImagePreview" src={this.state.imageURL}
-                alt={this.state.imageName}
-                />
-              </div>
+        <form onSubmit={this.handleSubmit}>
+          <input
+           className="frameNameForm"
+           maxlength="30"
+           type="text"
+           name="name"
+           autoComplete="off"
+           placeholder="What's your name?" onChange={this.handleChange}
+           value={this.state.name}
+          />
+          <br/>
+          <textarea
+            className="frameMessageForm"
+            name="message"
+            cols="50"
+            rows="7"
+             maxLength="300"
+             placeholder="What do you want your frame to say?" onChange={this.handleChange} value={this.state.message}
+           />
+          <div className='char-length'>
+            {charLeft <= 100
+              ? <span>{charLeft} character(s) left</span>
+              : <span> </span>
             }
-            <button className="frameSubmitButton">Add Frame</button>
-          </form>
-        </section>
+          </div>
+          <br/>
+          <input
+            className="frameImageUploader"
+            name="image"
+            type="file"
+            accept=".jpeg,.jpg,png"
+            id="fileButton"
+            onChange={this.handleChange}
+          />
+          <br/>
+          {this.state.progress>0 && <progress className="progressBar uploader" value={this.state.progress} max="100" id="uploader">this.state.progress</progress>}
+          {this.state.imageURL!=='' &&
+            <div className="frameImagePreview">
+              <img
+                src={this.state.imageURL}
+                alt={this.state.imageName}
+              />
+            </div>
+          }
+          <button className="frameSubmitButton">Add Frame</button>
+        </form>
       </div>
     )
   }

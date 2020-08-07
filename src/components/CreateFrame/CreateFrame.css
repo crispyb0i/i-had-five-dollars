@@ -1,13 +1,4 @@
-.add-item {
-  display: flex;
-  min-height: 50vh;
-  width: 100%;
-  padding: 0;
-  margin: 0 auto;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
+
 
 .char-length {
   text-align: right;
@@ -21,12 +12,27 @@
 }
 
 .createContainer {
+  display: flex;
+  min-height: 50vh;
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  justify-content: center;
   margin-top: -20px;
 }
 
 .frameImagePreview {
   margin-top: 50px;
-  width: 500px;
+  width: 300px;
+  height: 300px;
+  margin: auto;
+}
+
+.frameImagePreview img {
+  width: 100%;
 }
 
 .frameImageUploader {

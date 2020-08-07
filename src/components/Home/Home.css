@@ -1,11 +1,26 @@
-.display-frames {
+.container {
+  flex-wrap: wrap;
+  justify-content: center;
   margin: 40px 0;
 }
 
+.container a {
+  color: black;
+  text-decoration: none;
+}
+
+.container ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
 .frameDiv {
-  width: 500px;
+  width: 450px;
+  height: 500px;
   margin: 20px;
   border: 1px solid black;
+  box-shadow: 3px 3px #888888;
   text-align: center;
   cursor: default;
 }
@@ -20,19 +35,23 @@
   margin: 5px;
 }
 
+.frameDiv img {
+  height: 250px;
+  width: 300px;
+  margin-bottom: 20px;
+}
+
 .frameDiv li {
   list-style-type: none;
   text-decoration: none;
   display:contents;
 }
 
-.homeWrapper a {
-  color: black;
-  text-decoration: none;
+.frameDiv p {
+  height: 100px;
 }
 
-.homeWrapper ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+.logo {
+  text-align: center;
+  font-size: 4vw;
 }

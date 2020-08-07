@@ -3,14 +3,12 @@ import firebase from '../../firebase'
 import './Frame.css'
 
 class Frame extends Component {
-  constructor(){
-    super()
-    this.state={
-      imageName:'',
-      imageURL:'',
-      message:'',
-      name:''
-    }
+
+  state = {
+    imageName:'',
+    imageURL:'',
+    message:'',
+    name:''
   }
 
   componentDidMount() {

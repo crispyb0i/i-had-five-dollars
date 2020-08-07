@@ -39,9 +39,8 @@ const Login = ({ history }) => {
         <input name="email" type="email" placeholder="Email" />
         <input name="password" type="password" placeholder="Password" />
         <button type="submit">Log in</button>
+        <button onClick={redirect}>Sign Up</button>
       </form>
-      <p>Don't have an account?</p>
-      <button onClick={redirect}>Sign Up</button>
     </div>
   );
 };

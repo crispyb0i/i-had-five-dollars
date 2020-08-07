@@ -1,9 +1,28 @@
 .signUpContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   text-align: center;
 }
 
-.signUpContainer form input {
-  font-size: 20px;
+.signUpContainer button {
+  height: 30px;
+  width: 100px;
+  font-size: 15px;
+  margin: 10px;
+}
+
+.signUpContainer h1 {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.signUpContainer input{
+  font-size: 18px;
   margin: 5px auto;
   display: block;
+}
+
+.signUpContainer form {
+  margin-bottom: 10px;
 }

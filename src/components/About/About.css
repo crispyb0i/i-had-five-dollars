@@ -3,3 +3,11 @@
   text-align: center;
   margin: auto;
 }
+
+img {
+  object-fit: contain;
+  height: 450px;
+  width: 450px;
+  margin: auto;
+  overflow: hidden;
+}

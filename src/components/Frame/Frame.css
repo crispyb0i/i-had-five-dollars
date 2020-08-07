@@ -4,14 +4,29 @@
   text-align: center;
 }
 
-.frameContainer img {
-  width: 50%;
+.frameContainer {
   margin: auto;
+  width: 80%;
+  max-width: 900px;
+  min-width: 700px;
+
+}
+
+.frameContainer h1 {
+  margin: 40px;
+}
+
+.frameContainer img {
+  width: 60%;
+  max-width: 500px;
+  margin: 50px auto;
   display: block;
 }
 
 .frameContainer p {
   text-align: center;
+  font-size: 20px;
+  word-wrap: break-word;
 }
 
 .header {

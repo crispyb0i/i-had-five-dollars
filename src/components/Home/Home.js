@@ -57,8 +57,8 @@ class Home extends Component {
       <div className='container'>
         <h1 className='logo'>I HAD FIVE DOLLARS</h1>
         <ul>
-          {this.state.frames.map((frame) => {
-            return (
+          {this.state.frames.map(frame =>
+            (
               <Link to={`/frame/${frame.id}`} key={frame.id}>
               <div className="frameDiv">
                 <li key={frame.id}>
@@ -70,7 +70,7 @@ class Home extends Component {
               </div>
               </Link>
             )
-          })}
+          )}
         </ul>
       </div>
     )

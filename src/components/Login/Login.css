@@ -7,9 +7,9 @@
 
 .loginDiv button {
   height: 30px;
-  width: 80px;
-  margin: auto;
-  margin-top: 10px;
+  width: 100px;
+  font-size: 15px;
+  margin: 10px;
 }
 
 .loginDiv h1 {
@@ -18,7 +18,7 @@
 }
 
 .loginDiv input{
-  font-size: 20px;
+  font-size: 18px;
   margin: 5px auto;
   display: block;
 }

@@ -17,9 +17,9 @@
 
 .frameDiv {
   width: 450px;
-  height: 500px;
+  height: 600px;
   margin: 20px;
-  border: 1px solid black;
+  border: 2px solid black;
   box-shadow: 3px 3px #888888;
   text-align: center;
   cursor: default;
@@ -27,17 +27,21 @@
 
 .frameDiv button {
   font-size: 20px;
-  margin-bottom: 20px;
+  height: 40px;
+  margin-top: 60px;
 }
 
 .frameDiv h3 {
   font-size: 30px;
-  margin: 5px;
+  margin: 15px;
 }
 
 .frameDiv img {
-  height: 250px;
+  object-fit: cover;
+  border-radius: 5px;
+  height: 300px;
   width: 300px;
+  overflow: hidden;
   margin-bottom: 20px;
 }
 
@@ -49,9 +53,12 @@
 
 .frameDiv p {
   height: 100px;
+  margin: auto;
+  width: 80%;
 }
 
 .logo {
   text-align: center;
-  font-size: 4vw;
+  font-size: 60px;
+  margin: 30px;
 }

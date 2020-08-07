@@ -87,9 +87,10 @@ class CreateFrame extends Component {
         return <Redirect to="/" />
     }
 
-    const charLeft = 300 - this.state.message.length;
+    const charLeft = 200 - this.state.message.length;
     return (
       <div className='createContainer'>
+        <h1>BUY A FRAME</h1>
         <form onSubmit={this.handleSubmit}>
           <input
            className="frameNameForm"
@@ -106,8 +107,8 @@ class CreateFrame extends Component {
             name="message"
             cols="50"
             rows="7"
-             maxLength="300"
-             placeholder="What do you want your frame to say?" onChange={this.handleChange} value={this.state.message}
+             maxLength="200"
+             placeholder="What do you want your frame to say? (200 character limit)" onChange={this.handleChange} value={this.state.message}
            />
           <div className='char-length'>
             {charLeft <= 100
@@ -126,6 +127,7 @@ class CreateFrame extends Component {
           />
           <br/>
           {this.state.progress>0 && <progress className="progressBar uploader" value={this.state.progress} max="100" id="uploader">this.state.progress</progress>}
+          <button className="frameSubmitButton">Add Frame</button>
           {this.state.imageURL!=='' &&
             <div className="frameImagePreview">
               <img
@@ -134,7 +136,7 @@ class CreateFrame extends Component {
               />
             </div>
           }
-          <button className="frameSubmitButton">Add Frame</button>
+
         </form>
       </div>
     )

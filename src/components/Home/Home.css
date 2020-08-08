@@ -1,7 +1,7 @@
 .container {
-  flex-wrap: wrap;
   justify-content: center;
-  margin: 40px 0;
+  background-color: lightgray;
+  padding-bottom: 50px;
 }
 
 .container a {
@@ -18,31 +18,38 @@
 .frameDiv {
   width: 450px;
   height: 600px;
-  margin: 20px;
-  border: 2px solid black;
-  box-shadow: 3px 3px #888888;
+  margin: 15px;
+  border: 3px solid black;
+  box-shadow: 5px 5px #888888;
   text-align: center;
-  cursor: default;
+  cursor: pointer;
+  background-color: #EEF0F2;
 }
 
 .frameDiv button {
-  font-size: 20px;
+  color: white;
+  font: 20px;
   height: 40px;
+  width: 150px;
   margin-top: 60px;
+  background-color: #BB0A21;
 }
 
 .frameDiv h3 {
-  font-size: 30px;
+  font-size: 25px;
+  font-weight: bolder;
   margin: 15px;
 }
 
 .frameDiv img {
   object-fit: cover;
+  border: 2px solid black;
   border-radius: 5px;
   height: 300px;
   width: 300px;
   overflow: hidden;
   margin-bottom: 20px;
+
 }
 
 .frameDiv li {
@@ -57,8 +64,11 @@
   width: 80%;
 }
 
-.logo {
-  text-align: center;
-  font-size: 60px;
-  margin: 30px;
+.frameDiv:hover {
+  border-color: #49977F;
+}
+
+.header {
+  justify-content: center;
+  padding: 40px 0;
 }

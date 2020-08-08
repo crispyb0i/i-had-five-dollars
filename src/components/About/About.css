@@ -8,6 +8,6 @@ img {
   object-fit: contain;
   height: 450px;
   width: 450px;
-  margin: auto;
+  margin: 0 auto 50px auto;
   overflow: hidden;
 }

@@ -55,7 +55,7 @@ class Home extends Component {
   render() {
     return (
       <div className='container'>
-        <h1 className='logo'>I HAD FIVE DOLLARS</h1>
+        <h1 className='header'>I HAD FIVE DOLLARS</h1>
         <ul>
           {this.state.frames.map(frame =>
             (

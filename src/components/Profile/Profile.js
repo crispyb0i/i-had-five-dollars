@@ -1,13 +1,20 @@
-import React, { Component } from 'react'
+import React, { Component, useContext } from 'react'
 import firebaseConfig from '../../firebase'
+import firebase from 'firebase'
 import './Profile.css'
+import { AuthContext } from '../Auth/Auth';
 
 class Profile extends Component {
-  constructor(){
-    super()
-    this.state = {
-    };
+  state = {
+    user:firebase.auth().currentUser
   }
+
+
+  componentDidMount(){
+    console.log(this.state.user)
+  }
+
+
 
   render() {
     return (

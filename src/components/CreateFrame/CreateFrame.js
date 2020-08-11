@@ -23,11 +23,10 @@ class CreateFrame extends Component {
     if(e.target.name === "image"){
       const image = e.target.files[0]
       if(this.state.imageName!=='' && image.name!==this.state.imageName){
-        console.log("HI")
         firebase.storage().ref(`frames/${this.state.imageName}`).delete().then(function() {
           alert("FILE DELETED SUCCESSFULLY")
         }).catch(function(error) {
-          alert("HUH", error)
+          alert(error)
         })
       }
       this.setState({imageName:image.name})

@@ -10,8 +10,8 @@ import SignUp from '../SignUp/SignUp'
 import Frame from '../Frame/Frame'
 import './Navbar.css'
 
-class Navbar extends Component {
-  render(){
+  function Navbar() {
+
     return (
       <Router>
         <div>
@@ -35,7 +35,6 @@ class Navbar extends Component {
         </div>
       </Router>
     )
-  }
 }
 
 export default Navbar

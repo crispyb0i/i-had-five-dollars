@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import firebase from '../../firebase.js'
+import firebase from 'firebase'
 import { Redirect } from 'react-router-dom';
 import './CreateFrame.css'
 
@@ -93,7 +93,7 @@ class CreateFrame extends Component {
         <form onSubmit={this.handleSubmit}>
           <input
            className="frameNameForm"
-           maxlength="30"
+           maxLength="30"
            type="text"
            name="name"
            autoComplete="off"
@@ -135,7 +135,6 @@ class CreateFrame extends Component {
               />
             </div>
           }
-
         </form>
       </div>
     )

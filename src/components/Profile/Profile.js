@@ -9,7 +9,9 @@ class Profile extends Component {
     user:firebase.auth().currentUser
   }
 
+
   render() {
+    console.log(this.state)
     return (
       <div className='container'>
         <h1 className='header'>PROFILE</h1>

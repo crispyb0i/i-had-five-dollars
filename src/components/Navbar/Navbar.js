@@ -7,7 +7,7 @@ import CreateFrame from '../CreateFrame/CreateFrame'
 import PrivateRoute from '../PrivateRoute/PrivateRoute'
 import Login from '../Login/Login'
 import SignUp from '../SignUp/SignUp'
-import Frame from '../Frame/Frame'
+import FramePage from '../FramePage/FramePage'
 import './Navbar.css'
 
   function Navbar() {
@@ -29,7 +29,7 @@ import './Navbar.css'
             <Route exact path='/shop' component={CreateFrame} />
             <Route path = '/login' component={Login} />
             <Route path = '/signup' component={SignUp} />
-            <Route path = '/frame/:id' component={Frame} />
+            <Route path = '/frame/:id' component={FramePage} />
           </Switch>
         </div>
       </Router>

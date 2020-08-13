@@ -1,35 +1,61 @@
-.emptyPage {
-  font-size: 50px;
-  font-weight: bolder;
+.frameDiv {
+  width: 450px;
+  height: 600px;
+  margin: 15px;
+  border: 3px solid black;
+  box-shadow: 5px 5px #888888;
   text-align: center;
+  cursor: pointer;
+  background-color: #EEF0F2;
 }
 
-.frameContainer {
+.frameDiv button {
+  color: white;
+  font: 20px;
+  height: 40px;
+  width: 150px;
+  position: absolute;
+  background-color: #BB0A21;
+  display: block;
+  margin-top: 38px;
+}
+
+.frameDiv h3 {
+  font-size: 25px;
+  font-weight: bolder;
+  margin: 15px;
+}
+
+.frameDiv img {
+  object-fit: cover;
+  border: 2px solid black;
+  border-radius: 5px;
+  height: 300px;
+  width: 300px;
+  overflow: hidden;
+  margin-bottom: 20px;
+
+}
+
+.frameDiv p {
+  height: 100px;
   margin: auto;
   width: 80%;
-  max-width: 900px;
-  min-width: 700px;
-
-}
-
-.frameContainer h1 {
-  margin: 40px;
-}
-
-.frameContainer img {
-  width: 60%;
-  max-width: 500px;
-  margin: 50px auto;
-  display: block;
-}
-
-.frameContainer p {
-  text-align: center;
-  font-size: 20px;
   word-wrap: break-word;
 }
 
-.header {
-  text-align: center;
-  font-size: 3em;
+.frameDiv:hover {
+  border-color: #49977F;
+}
+
+@media screen and (max-width: 600px) {
+  .frameDiv {
+    width: 90vw;
+    margin: auto;
+    margin-bottom: 30px;
+  }
+
+  .frameDiv img {
+    width: 80vw;
+  }
 }

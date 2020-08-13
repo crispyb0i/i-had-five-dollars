@@ -1,47 +1,33 @@
-import React, { Component } from 'react'
-import firebase from '../../firebase'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import firebase from '../../firebase.js'
+import FrameIcons from './FrameIcons/FrameIcons'
 import './Frame.css'
 
-class Frame extends Component {
+function Frame(props) {
 
-  state = {
-    imageName:'',
-    imageURL:'',
-    message:'',
-    name:''
+  function removeItem(frameId,imageName) {
+    const itemRef = firebase.database().ref(`/frames/${frameId}`)
+    const imageRef = firebase.storage().ref(`/frames/${imageName}`)
+    itemRef.remove()
+    imageRef.delete().then(function() {
+      alert("FILE DELETED SUCCESSFULLY")
+    }).catch(function(error) {
+      alert(error)
+    })
   }
 
-  componentDidMount() {
-    if(this.props.match) {
-      const id = this.props.match.params.id
-      const itemRef = firebase.database().ref(`/frames/${id}`)
-      console.log(itemRef)
-      itemRef.on('value', (snapshot) => {
-        if(snapshot.val()){
-          this.setState({
-            imageName: snapshot.val().imageName,
-            imageURL: snapshot.val().imageURL,
-            message: snapshot.val().message,
-            name: snapshot.val().name
-          })
-        }
-        console.log(snapshot.val())
-      })
-    }
-  }
-
-  render(){
-    if(this.state.name===''){
-      return <p className="emptyPage">This frame doesn't exist</p>
-    }
-    return (
-      <div className='frameContainer'>
-        <h1 className='header'>{this.state.name}</h1>
-        <img alt={this.state.imageName} src={this.state.imageURL}/>
-        <p>{this.state.message}</p>
-      </div>
-    )
-  }
+  return (
+    <div className='frameDiv' key={props.frameID}>
+      <Link to={`/frame/${props.frameID}`}>
+        <h3>{props.name}</h3>
+        <img src={props.imageURL} key={props.imageName} alt={props.imageName}/>
+        <p>{props.message}</p>
+      </Link>
+      <FrameIcons />
+      <button onClick={() => removeItem(props.frameID,props.imageName)}>Remove Item</button>
+    </div>
+  )
 }
 
 export default Frame

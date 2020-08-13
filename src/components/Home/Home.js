@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import firebase from '../../firebase.js'
-import { Link } from 'react-router-dom'
 import './Home.css'
-import { FaComments } from 'react-icons/fa';
 import Frame from '../Frame/Frame'
 
 class Home extends Component {

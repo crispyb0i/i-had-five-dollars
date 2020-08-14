@@ -9,5 +9,6 @@ body {
 }
 
 html {
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
+  background-color: lightgray;
 }

@@ -12,7 +12,6 @@ class CreateFrame extends Component {
       imageName: '',
       imageURL: '',
       progress: 0,
-      frames: [],
       submitted: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -63,11 +62,19 @@ class CreateFrame extends Component {
       return alert("Please fill out all the forms")
     }
     const framesRef = firebase.database().ref('frames')
+    const currentUser = firebase.auth().currentUser.uid
     const frame = {
       imageName: this.state.imageName,
       imageURL: this.state.imageURL,
       name: this.state.name,
-      message: this.state.message
+      message: this.state.message,
+      likes: {
+        user: false
+      },
+      bookmarks: {
+        user: false
+      },
+      createdBy: currentUser
     }
     framesRef.push(frame);
     document.getElementById('fileButton').value=''

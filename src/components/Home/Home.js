@@ -39,7 +39,10 @@ class Home extends Component {
           {this.state.frames.map(frame =>
             (
               <li>
-                <Frame frameID={frame.id} name={frame.name} imageURL={frame.imageURL} imageName={frame.imageName} message={frame.message}/>
+                <Frame
+                  frameID={frame.id}
+                  name={frame.name}
+                  imageURL={frame.imageURL} imageName={frame.imageName} message={frame.message}/>
               </li>
             )
           )}

@@ -56,8 +56,9 @@ class CreateFrame extends Component {
     )
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault()
+    //make sure all parts of the form are filled in
     if(this.state.progress!==100 || this.state.name ==='' || this.state.message === ''){
       return alert("Please fill out all the forms")
     }
@@ -68,15 +69,25 @@ class CreateFrame extends Component {
       imageURL: this.state.imageURL,
       name: this.state.name,
       message: this.state.message,
-      likes: {
-        user: false
-      },
-      bookmarks: {
-        user: false
-      },
       createdBy: currentUser
     }
     framesRef.push(frame);
+
+    //get and set user frames immutably
+    const userFramesRef = firebase.database().ref('/users/' + currentUser + '/frames/')
+    let userFrames = {}
+    let snap
+    await userFramesRef.once('value').then(function(snapshot) {
+      userFrames = {...snapshot.val()}
+    })
+    //get frame ID
+    framesRef.limitToLast(1).on('child_added', function(childSnapshot) {
+     snap = childSnapshot.key;
+   });
+    userFrames[snap]=true
+    userFramesRef.set(userFrames)
+
+    //set back to default values
     document.getElementById('fileButton').value=''
     this.setState({
       image: '',

@@ -11,23 +11,17 @@ class Frame extends Component {
   }
 
   currentUser = firebase.auth().currentUser.uid
-  frameRef = firebase.database().ref('/frames/' + this.props.frameID + '/likes/')
+  likeRef = firebase.database().ref('/frames/' + this.props.frameID + '/likes/')
 
-  componentDidMount() {
+  async componentDidMount() {
     let currentUser = firebase.auth().currentUser.uid
     let likeObj = {}
-    this.frameRef.once('value').then(function(snapshot) {
-
+    await this.likeRef.once('value').then(function(snapshot) {
       likeObj = {...snapshot.val()}
-      console.log(likeObj)
-
     })
-    if(likeObj[currentUser]==undefined){
-      this.setState({liked:!likeObj[this.currentUser]})
-    }else{
-      this.setState({liked:true})
+    if(likeObj[currentUser]){
+      this.setState({liked:likeObj[currentUser]})
     }
-    console.log(likeObj)
   }
 
 
@@ -35,7 +29,9 @@ class Frame extends Component {
   removeItem = (frameId,imageName) => {
     const itemRef = firebase.database().ref(`/frames/${frameId}`)
     const imageRef = firebase.storage().ref(`/frames/${imageName}`)
+    const userFrameRef = firebase.database().ref(`/users/${this.currentUser}/frames/${frameId}`)
     itemRef.remove()
+    userFrameRef.remove()
     imageRef.delete().then(function() {
       alert("FILE DELETED SUCCESSFULLY")
     }).catch(function(error) {
@@ -45,20 +41,18 @@ class Frame extends Component {
 
   handleLike = () => {
     let currentUser = firebase.auth().currentUser.uid
-    let frameRef = firebase.database().ref('/frames/' + this.props.frameID + '/likes/')
-    frameRef.once('value').then(function(snapshot) {
+    let likeRef = firebase.database().ref('/frames/' + this.props.frameID + '/likes/')
+    likeRef.once('value').then(function(snapshot) {
       let likeObj = {...snapshot.val()}
-      console.log(currentUser)
       if(likeObj[currentUser]){
-        console.log('THIS PERSON LIKED THIS PHOTO')
         likeObj[currentUser]=!likeObj[currentUser]
-        frameRef.set(likeObj)
+        likeRef.set(likeObj)
       }else{
-        console.log('THIS PERSON DID NOT LIKE THIS PHOTO')
         likeObj[currentUser]=!likeObj[currentUser]
-        frameRef.set(likeObj)
+        likeRef.set(likeObj)
       }
     })
+    this.setState({liked:!this.state.liked})
   }
 
   render() {

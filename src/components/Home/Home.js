@@ -38,7 +38,7 @@ class Home extends Component {
         <ul>
           {this.state.frames.map(frame =>
             (
-              <li>
+              <li key={frame.id}>
                 <Frame
                   frameID={frame.id}
                   name={frame.name}

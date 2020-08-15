@@ -1,0 +1,10 @@
+.profileNav ul{
+  color: white;
+}
+
+button {
+  width: 100px;
+  height: 40px;
+  display: block;
+  margin: 30px auto;
+}

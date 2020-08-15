@@ -7,11 +7,13 @@ import './Frame.css'
 class Frame extends Component {
 
   state = {
-    liked: false
+    liked: false,
+    numberOfLikes: 0,
   }
 
   currentUser = firebase.auth().currentUser.uid
   likeRef = firebase.database().ref('/frames/' + this.props.frameID + '/likes/')
+  likeNum = 0;
 
   async componentDidMount() {
     let currentUser = firebase.auth().currentUser.uid
@@ -22,9 +24,13 @@ class Frame extends Component {
     if(likeObj[currentUser]){
       this.setState({liked:likeObj[currentUser]})
     }
+    for(let like in likeObj){
+      if(likeObj[like]===true){
+        this.likeNum++
+      }
+    }
+    this.setState({numberOfLikes:this.likeNum})
   }
-
-
 
   removeItem = (frameId,imageName) => {
     const itemRef = firebase.database().ref(`/frames/${frameId}`)
@@ -53,6 +59,12 @@ class Frame extends Component {
       }
     })
     this.setState({liked:!this.state.liked})
+    if(!this.state.liked){
+      this.setState(prev=> {numberOfLikes:prev.numberOfLikes++})
+    }else{
+      this.setState(prev=> {numberOfLikes:prev.numberOfLikes--})
+    }
+    console.log(this.state)
   }
 
   render() {
@@ -63,7 +75,7 @@ class Frame extends Component {
           <img src={this.props.imageURL} key={this.props.imageName} alt={this.props.imageName}/>
           <p>{this.props.message}</p>
         </Link>
-        <FrameIcons handleLike={this.handleLike} like={this.state.liked}/>
+        <FrameIcons handleLike={this.handleLike} like={this.state.liked} id={this.props.frameID} numberOfLikes={this.state.numberOfLikes}/>
         <button onClick={() => this.removeItem(this.props.frameID,this.props.imageName)}>X</button>
       </div>
     )

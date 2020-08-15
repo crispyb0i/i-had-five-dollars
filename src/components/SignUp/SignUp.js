@@ -27,15 +27,11 @@ const SignUp = ({ history }) => {
     history.push("/login");
   };
 
-  function writeUserData(userId, name, email) {
+  function writeUserData(userID, name, email) {
     firebase.database().ref('users/').push({
+      userID: userID,
       username: name,
       email: email,
-      avatar: '',
-      frames: [0],
-      likes: [0],
-      comments: [0],
-      bookmarks: [0]
     });
   }
 

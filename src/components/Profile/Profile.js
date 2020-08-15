@@ -6,17 +6,27 @@ import './Profile.css'
 
 class Profile extends Component {
   state = {
-    user:firebase.auth().currentUser
+    user:firebase.auth().currentUser.uid,
+    page: 'posts'
   }
 
 
   render() {
+    const postsPage = () => {
+
+    }
     console.log(this.state)
     return (
       <div className='container'>
         <h1 className='header'>PROFILE</h1>
-        <h3>Posts</h3>
-        <h3>Favorites</h3>
+        <nav className='profileNav'>
+          <ul>
+            <li>Posts</li>
+            <li>Favorites</li>
+            <li>Comments</li>
+            <li>Settings</li>
+          </ul>
+        </nav>
         <button onClick={() => firebaseConfig.auth().signOut()}>Sign out</button>
       </div>
     )

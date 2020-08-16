@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router'
 import firebase from '../../firebase.js'
 import FrameIcons from './FrameIcons/FrameIcons'
 import './Frame.css'
@@ -8,15 +9,16 @@ class Frame extends Component {
 
   state = {
     liked: false,
+    bookmarked: false,
     numberOfLikes: 0,
   }
 
-  currentUser = firebase.auth().currentUser.uid
+  currentUser = firebase.auth().currentUser
   likeRef = firebase.database().ref('/frames/' + this.props.frameID + '/likes/')
   likeNum = 0;
 
   async componentDidMount() {
-    let currentUser = firebase.auth().currentUser.uid
+    let currentUser = firebase.auth().currentUser
     let likeObj = {}
     await this.likeRef.once('value').then(function(snapshot) {
       likeObj = {...snapshot.val()}
@@ -35,7 +37,7 @@ class Frame extends Component {
   removeItem = (frameId,imageName) => {
     const itemRef = firebase.database().ref(`/frames/${frameId}`)
     const imageRef = firebase.storage().ref(`/frames/${imageName}`)
-    const userFrameRef = firebase.database().ref(`/users/${this.currentUser}/frames/${frameId}`)
+    const userFrameRef = firebase.database().ref(`/users/${this.props.createdBy}/frames/${frameId}`)
     itemRef.remove()
     userFrameRef.remove()
     imageRef.delete().then(function() {
@@ -46,28 +48,66 @@ class Frame extends Component {
   }
 
   handleLike = () => {
-    let currentUser = firebase.auth().currentUser.uid
-    let likeRef = firebase.database().ref('/frames/' + this.props.frameID + '/likes/')
-    likeRef.once('value').then(function(snapshot) {
-      let likeObj = {...snapshot.val()}
-      if(likeObj[currentUser]){
-        likeObj[currentUser]=!likeObj[currentUser]
-        likeRef.set(likeObj)
+    if(firebase.auth().currentUser){
+      const currentUser = firebase.auth().currentUser.uid
+      const frameID = this.props.frameID
+      const likeRef = firebase.database().ref('/frames/' + this.props.frameID + '/likes/')
+      const userLikesRef = firebase.database().ref('/users/' + currentUser + '/likes/')
+
+      likeRef.once('value').then(function(snapshot) {
+        let likeObj = {...snapshot.val()}
+        if(likeObj[currentUser]){
+          likeObj[currentUser]=!likeObj[currentUser]
+          likeRef.set(likeObj)
+        }else{
+          likeObj[currentUser]=!likeObj[currentUser]
+          likeRef.set(likeObj)
+        }
+      })
+      userLikesRef.once('value').then(function(snapshot) {
+        let userLikeObj = {...snapshot.val()}
+        if(userLikeObj[frameID]){
+          userLikeObj[frameID]=!userLikeObj[frameID]
+          userLikesRef.set(userLikeObj)
+        }else{
+          userLikeObj[frameID]=true
+          userLikesRef.set(userLikeObj)
+        }
+      })
+      this.setState({liked:!this.state.liked})
+      if(!this.state.liked){
+        this.setState(prev=> {numberOfLikes:prev.numberOfLikes++})
       }else{
-        likeObj[currentUser]=!likeObj[currentUser]
-        likeRef.set(likeObj)
+        this.setState(prev=> {numberOfLikes:prev.numberOfLikes--})
       }
-    })
-    this.setState({liked:!this.state.liked})
-    if(!this.state.liked){
-      this.setState(prev=> {numberOfLikes:prev.numberOfLikes++})
     }else{
-      this.setState(prev=> {numberOfLikes:prev.numberOfLikes--})
+      this.props.history.push('/login')
     }
-    console.log(this.state)
   }
 
+  // handleBookmark = () => {
+  //   let currentUser = firebase.auth().currentUser.uid
+  //   let likeRef = firebase.database().ref('/frames/' + this.props.frameID + '/likes/')
+  //   likeRef.once('value').then(function(snapshot) {
+  //     let likeObj = {...snapshot.val()}
+  //     if(likeObj[currentUser]){
+  //       likeObj[currentUser]=!likeObj[currentUser]
+  //       likeRef.set(likeObj)
+  //     }else{
+  //       likeObj[currentUser]=!likeObj[currentUser]
+  //       likeRef.set(likeObj)
+  //     }
+  //   })
+  //   this.setState({liked:!this.state.liked})
+  //   if(!this.state.liked){
+  //     this.setState(prev=> {numberOfLikes:prev.numberOfLikes++})
+  //   }else{
+  //     this.setState(prev=> {numberOfLikes:prev.numberOfLikes--})
+  //   }
+  // }
+
   render() {
+    console.log(this.props)
     return (
       <div className='frameDiv' key={this.props.frameID}>
         <Link to={`/frame/${this.props.frameID}`}>
@@ -82,4 +122,4 @@ class Frame extends Component {
   }
 }
 
-export default Frame
+export default withRouter(Frame)

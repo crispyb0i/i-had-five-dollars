@@ -2,6 +2,7 @@ import React, { useCallback } from 'react'
 import { withRouter } from 'react-router'
 import firebaseConfig from "../../firebase"
 import firebase from 'firebase'
+import defaultAvatar from '../../assets/default-avatar.jpg'
 import './SignUp.css'
 
 
@@ -15,7 +16,7 @@ const SignUp = ({ history }) => {
         .auth()
         .createUserWithEmailAndPassword(email.value, password.value);
         let user = firebase.auth().currentUser;
-        writeUserData(user.uid, userName.value, email.value,)
+        writeUserData(user.uid, userName.value, email.value)
         console.log(user)
       history.push("/");
     } catch (error) {
@@ -28,11 +29,23 @@ const SignUp = ({ history }) => {
   };
 
   function writeUserData(userID, name, email) {
-    firebase.database().ref('users/').push({
-      userID: userID,
-      username: name,
-      email: email,
-    });
+    const userRef = firebase.database().ref('users/')
+    let users = {}
+    userRef.once('value',snapshot=> {
+      users = {...snapshot.val()}
+      users[userID]= {
+        username: name,
+        email: email,
+        //might not need this
+        createdAt: firebase.database.ServerValue.TIMESTAMP
+      }
+      userRef.set(users)
+    })
+    // .push({
+    //   userID: userID,
+    //   username: name,
+    //   email: email,
+    // });
   }
 
   return (
@@ -43,6 +56,7 @@ const SignUp = ({ history }) => {
         <input name="email" type="email" placeholder="Email" />
         <input name="password" type="password" placeholder="Password" />
         <button type="submit">Sign Up</button>
+        <p>Already have an account?</p>
         <button onClick={redirect}>Log in</button>
       </form>
     </div>

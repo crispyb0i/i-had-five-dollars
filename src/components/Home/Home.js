@@ -22,7 +22,8 @@ class Home extends Component {
           name: frames[frame].name,
           message: frames[frame].message,
           imageName: frames[frame].imageName,
-          imageURL: frames[frame].imageURL
+          imageURL: frames[frame].imageURL,
+          createdBy: frames[frame].createdBy
         });
       }
       this.setState({
@@ -42,7 +43,10 @@ class Home extends Component {
                 <Frame
                   frameID={frame.id}
                   name={frame.name}
-                  imageURL={frame.imageURL} imageName={frame.imageName} message={frame.message}/>
+                  imageURL={frame.imageURL}
+                  imageName={frame.imageName}
+                  message={frame.message}
+                  createdBy={frame.createdBy}/>
               </li>
             )
           )}

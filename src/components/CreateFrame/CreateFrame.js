@@ -21,6 +21,7 @@ class CreateFrame extends Component {
   handleChange(e) {
     if(e.target.name === "image"){
       const image = e.target.files[0]
+      console.log(image)
       if(this.state.imageName!=='' && image.name!==this.state.imageName){
         firebase.storage().ref(`frames/${this.state.imageName}`).delete().then(function() {
           alert("FILE DELETED SUCCESSFULLY")
@@ -69,7 +70,8 @@ class CreateFrame extends Component {
       imageURL: this.state.imageURL,
       name: this.state.name,
       message: this.state.message,
-      createdBy: currentUser
+      createdBy: currentUser,
+      createdAt: firebase.database.ServerValue.TIMESTAMP
     }
     framesRef.push(frame);
 
@@ -83,8 +85,8 @@ class CreateFrame extends Component {
     //get frame ID
     framesRef.limitToLast(1).on('child_added', function(childSnapshot) {
      snap = childSnapshot.key;
+     userFrames[snap]=true
    });
-    userFrames[snap]=true
     userFramesRef.set(userFrames)
 
     //set back to default values

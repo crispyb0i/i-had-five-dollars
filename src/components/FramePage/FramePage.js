@@ -1,42 +1,46 @@
 import React, { Component } from 'react'
 import firebase from '../../firebase'
+import Frame from '../Frame/Frame'
 import './FramePage.css'
 
 class FramePage extends Component {
 
   state = {
-    imageName:'',
-    imageURL:'',
-    message:'',
-    name:''
+    frame:''
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     if(this.props.match) {
       const id = this.props.match.params.id
       const itemRef = firebase.database().ref(`/frames/${id}`)
-      itemRef.on('value', (snapshot) => {
+      await itemRef.on('value', (snapshot) => {
         if(snapshot.val()){
+          console.log(snapshot.val())
           this.setState({
-            imageName: snapshot.val().imageName,
-            imageURL: snapshot.val().imageURL,
-            message: snapshot.val().message,
-            name: snapshot.val().name
+            frame:snapshot.val()
           })
         }
       })
     }
   }
 
-  render(){
-    if(this.state.name===''){
-      return <p className="emptyPage">This frame doesn't exist</p>
+  render() {
+    let frame = "This frame doesn't exist"
+    if(this.state.frame===''){
+      frame = <p className="emptyPage">{this.state.frame}</p>
+      console.log(frame)
+    } else {
+      frame = <Frame
+        frameID={this.props.match.params.id}
+        name={this.state.frame.name}
+        imageURL={this.state.frame.imageURL}
+        imageName={this.state.frame.imageName}
+        message={this.state.frame.message}
+        createdBy={this.state.frame.createdBy}/>
     }
     return (
-      <div className='frameContainer'>
-        <h1 className='header'>{this.state.name}</h1>
-        <img alt={this.state.imageName} src={this.state.imageURL}/>
-        <p>{this.state.message}</p>
+      <div>
+        {frame}
       </div>
     )
   }

@@ -13,19 +13,19 @@ class Profile extends Component {
     avatar: defaultAvatar,
   }
 
-
-  async componentDidMount() {
-    let userPosts = {}
-    const framesRef = firebase.database().ref('/frames/')
-    await framesRef.orderByChild('createdBy').equalTo(firebase.auth().currentUser.uid).on('value',
-     snapshot => {
-      userPosts = snapshot.val()
-      console.log(userPosts)
-      this.setState({posts:userPosts})
-    })
-    console.log(this.state)
-
-  }
+  //needs fixing
+  // async componentDidMount() {
+  //   let userPosts = {}
+  //   const framesRef = firebase.database().ref('/frames/')
+  //   await framesRef.orderByChild('createdBy').equalTo(firebase.auth().currentUser.uid).on('value',
+  //    snapshot => {
+  //     userPosts = snapshot.val()
+  //     console.log(userPosts)
+  //     this.setState({posts:userPosts})
+  //   })
+  //   console.log(this.state)
+  //
+  // }
 
   handleNav = (e) => {
     this.setState({page:e.currentTarget.getAttribute('value')})
@@ -47,6 +47,7 @@ class Profile extends Component {
         <img className='avatarPic' src={defaultAvatar}/>
         <h1>YOUR POSTS</h1>
         <div className='profilePostsDiv'>
+          // needs fixing
           {
             this.state.posts.length>0 ?
             //frame[Object.keys(frame)]

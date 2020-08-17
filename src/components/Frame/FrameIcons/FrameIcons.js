@@ -14,14 +14,21 @@ function FrameIcons(props) {
   }
   console.log(props)
 
-  let heart = props.like ? <FaHeart size="2em" color="red" onClick={props.handleLike}/> : <FaRegHeart size="2em" onClick={props.handleLike}/>
+  let heart = props.like ?
+  <div>
+    <FaHeart size="2em" color="red" onClick={props.handleLike}/>{props.numberOfLikes}
+  </div>
+  :
+  <div>
+    <FaRegHeart size="2em" onClick={props.handleLike}/>{props.numberOfLikes}
+  </div>
 
 let bookmark = props.bookmarked ? <FaBookmark color="blue" size="2em" onClick={props.handleBookmark}/> : <FaRegBookmark size="2em" onClick={props.handleBookmark}/>
 
   return (
     <div className='iconContainer'>
-      {heart}{props.numberOfLikes}
-      <FaRegComment size="2em" onClick={test} />3
+      {heart}
+      <FaRegComment size="2em" onClick={test} />
       {bookmark}
     </div>
   )

@@ -31,6 +31,13 @@ const SignUp = ({ history }) => {
   function writeUserData(userID, name, email) {
     const userRef = firebase.database().ref('users/')
     let users = {}
+    //Check for duplicate usernames
+    // userRef.on('value',snapshot => snapshot.forEach(snapshot => {
+    //   if(snapshot.child('username')===name){
+    //     return alert()
+    //   }
+    // }))
+    //
     userRef.once('value',snapshot=> {
       users = {...snapshot.val()}
       users[userID]= {

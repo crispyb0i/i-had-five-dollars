@@ -27,7 +27,7 @@ class Home extends Component {
         });
       }
       this.setState({
-        frames: newState
+        frames: newState.reverse()
       })
     })
   }

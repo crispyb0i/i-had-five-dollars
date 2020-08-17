@@ -1,6 +1,12 @@
-.profileContainer img {
+.profileContainer .avatarPic {
   display: block;
-  margin: 20px auto;
+  margin: 80px auto;
+  width: 200px;
+}
+
+.profileContainer h1 {
+  display: flex;
+  justify-content: center;
 }
 
 .profileNav ul{
@@ -20,7 +26,11 @@
   flex-wrap: wrap;
 }
 
-.profileContainer .profilePostsDiv a{
+.profileContainer .profilePostsDiv a {
   text-decoration: none;
   color: black;
+}
+
+.profilePostsDiv {
+  margin: 50px;
 }

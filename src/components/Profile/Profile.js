@@ -7,53 +7,59 @@ import Frame from '../Frame/Frame'
 
 class Profile extends Component {
   state = {
-    user:firebase.auth().currentUser.uid,
-    page: 'posts',
+    user: firebase.database().ref('users/' + firebase.auth().currentUser.uid),
+    page: 'default',
+    posts: '',
     avatar: defaultAvatar,
   }
 
-  userRef = firebase.database().ref('users/' + this.state.user)
-  avatar = ''
-  userPosts = []
 
   async componentDidMount() {
-    const framesRef = firebase.database().ref('/frames')
-    await framesRef.orderByChild('createdBy').equalTo(this.state.user).on('child_added', snapshot => {
-      this.userPosts.push({...snapshot.val(),frameID:snapshot.key})
+    let userPosts = {}
+    const framesRef = firebase.database().ref('/frames/')
+    await framesRef.orderByChild('createdBy').equalTo(firebase.auth().currentUser.uid).on('value',
+     snapshot => {
+      userPosts = snapshot.val()
+      console.log(userPosts)
+      this.setState({posts:userPosts})
     })
-    this.setState({posts:this.userPosts})
+    console.log(this.state)
+
+  }
+
+  handleNav = (e) => {
+    this.setState({page:e.currentTarget.getAttribute('value')})
+    console.log(this.state)
   }
 
   render() {
-    // const postsPage = () => {
-    //   userRef.once('value').then(snapshot => {
-    //
-    //   })
-    // }
     return (
       <div className='profileContainer'>
         <h1 className='header'>PROFILE</h1>
         <nav className='profileNav'>
           <ul>
             <li>Posts</li>
-            <li>Favorites</li>
+            <li onClick={(e)=>this.handleNav(e)} value='saved'>Saved</li>
             <li>Comments</li>
             <li>Settings</li>
           </ul>
         </nav>
-        <img src={defaultAvatar}/>
+        <img className='avatarPic' src={defaultAvatar}/>
+        <h1>YOUR POSTS</h1>
         <div className='profilePostsDiv'>
           {
-            this.userPosts ?
-            this.userPosts.map(frame => {
+            this.state.posts.length>0 ?
+            //frame[Object.keys(frame)]
+            this.state.posts.map(frame => {
+              console.log(Object.keys(frame))
               return <Frame
-                key={frame.frameID}
-                frameID={frame.frameID}
-                name={frame.name}
-                imageURL={frame.imageURL}
-                imageName={frame.imageName}
-                message={frame.message}
-                createdBy={frame.createdBy}
+                key={Object.keys(frame)}
+                frameID={Object.keys(frame)}
+                name={frame[Object.keys(frame)].name}
+                imageURL={frame[Object.keys(frame)].imageURL}
+                imageName={frame[Object.keys(frame)].imageName}
+                message={frame[Object.keys(frame)].message}
+                createdBy={frame[Object.keys(frame)].createdBy}
                 />
             })
             :

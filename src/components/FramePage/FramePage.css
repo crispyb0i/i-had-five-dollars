@@ -4,8 +4,19 @@
   text-align: center;
 }
 
+.framePageDiv {
+  display: flex;
+  justify-content: center;
+}
+
+.framePageDiv a {
+  text-decoration: none;
+  color: black;
+  pointer-events: none; 
+}
+
 .frameContainer {
-  margin:auto;
+  margin: auto;
 }
 
 .header {

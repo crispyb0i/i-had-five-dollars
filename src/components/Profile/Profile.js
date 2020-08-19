@@ -13,60 +13,76 @@ class Profile extends Component {
     avatar: defaultAvatar,
   }
 
-  //needs fixing
-  // async componentDidMount() {
-  //   let userPosts = {}
-  //   const framesRef = firebase.database().ref('/frames/')
-  //   await framesRef.orderByChild('createdBy').equalTo(firebase.auth().currentUser.uid).on('value',
-  //    snapshot => {
-  //     userPosts = snapshot.val()
-  //     console.log(userPosts)
-  //     this.setState({posts:userPosts})
-  //   })
-  //   console.log(this.state)
-  //
-  // }
+  async componentDidMount() {
+    let userPosts = {}
+    const framesRef = firebase.database().ref('/frames/')
+    await framesRef.orderByChild('createdBy').equalTo(firebase.auth().currentUser.uid).on('value',
+     snapshot => {
+      userPosts = snapshot.val()
+      this.setState({posts:userPosts})
+    })
+  }
 
   handleNav = (e) => {
     this.setState({page:e.currentTarget.getAttribute('value')})
-    console.log(this.state)
+    console.log(this.state.page)
   }
 
+  renderNav = () => {
+    console.log(this.state.page)
+    switch (this.state.page) {
+      case 'posts':
+        let posts = []
+        for(let key in this.state.posts){
+          posts.push(
+            <Frame 
+              key={key}
+              frameID={key}
+              name={this.state.posts[key].name}
+              imageURL={this.state.posts[key].imageURL}
+              imageName={this.state.posts[key].imageName}
+              message={this.state.posts[key].message}
+              createdBy={this.state.posts[key].createdBy}
+            />
+          )
+        }
+        return (
+          <div>
+            <h1>Your Posts</h1>
+            <div className='profilePostsDiv'>
+              {
+                this.state.posts ?
+                posts.map(frame => {
+                  return frame
+                })
+                :
+                <p>no posts to show</p>
+              }
+            </div>
+          </div>
+          )    
+      default :
+        return null
+    }
+  }
+
+
   render() {
+    
+
     return (
       <div className='profileContainer'>
         <h1 className='header'>PROFILE</h1>
         <nav className='profileNav'>
           <ul>
-            <li>Posts</li>
+            <li onClick={(e)=>this.handleNav(e)} value='posts'>Posts</li>
             <li onClick={(e)=>this.handleNav(e)} value='saved'>Saved</li>
-            <li>Comments</li>
-            <li>Settings</li>
+            <li onClick={(e)=>this.handleNav(e)} value='settings'>Settings</li>
           </ul>
         </nav>
         <img className='avatarPic' src={defaultAvatar}/>
-        <h1>YOUR POSTS</h1>
-        <div className='profilePostsDiv'>
-          // needs fixing
-          {
-            this.state.posts.length>0 ?
-            //frame[Object.keys(frame)]
-            this.state.posts.map(frame => {
-              console.log(Object.keys(frame))
-              return <Frame
-                key={Object.keys(frame)}
-                frameID={Object.keys(frame)}
-                name={frame[Object.keys(frame)].name}
-                imageURL={frame[Object.keys(frame)].imageURL}
-                imageName={frame[Object.keys(frame)].imageName}
-                message={frame[Object.keys(frame)].message}
-                createdBy={frame[Object.keys(frame)].createdBy}
-                />
-            })
-            :
-            <p>no posts to show</p>
-          }
-        </div>
+        {this.renderNav()}
+       
         <button className='signOutButton' onClick={() => firebaseConfig.auth().signOut()}>Sign out</button>
       </div>
     )

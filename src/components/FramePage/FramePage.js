@@ -39,7 +39,7 @@ class FramePage extends Component {
         createdBy={this.state.frame.createdBy}/>
     }
     return (
-      <div>
+      <div className='framePageDiv'>
         {frame}
       </div>
     )

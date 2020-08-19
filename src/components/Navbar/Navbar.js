@@ -25,6 +25,7 @@ import './Navbar.css'
           <Switch>
             <Route exact path='/' component={Home} />
             <PrivateRoute path='/profile' component={Profile} />
+            <PrivateRoute path='/shop' component={CreateFrame} />
             <Route path='/about' component={About} />
             <Route exact path='/shop' component={CreateFrame} />
             <Route path = '/login' component={Login} />

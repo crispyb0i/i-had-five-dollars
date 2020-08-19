@@ -12,7 +12,6 @@ function FrameIcons(props) {
       snapshot.forEach(snapshot => console.log(snapshot.child("username").val()))
     })
   }
-  console.log(props)
 
   let heart = props.like ?
   <div>

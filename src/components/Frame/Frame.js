@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
-import firebase from '../../firebase.js'
+import firebase from 'firebase'
 import FrameIcons from './FrameIcons/FrameIcons'
 import './Frame.css'
 
@@ -15,32 +15,33 @@ class Frame extends Component {
 
 
   async componentDidMount() {
-    const currentUser = firebase.auth().currentUser.uid
-    const likeRef = firebase.database().ref('/frames/' + this.props.frameID + '/likes/')
-    const bookmarkRef = firebase.database().ref('/users/' + currentUser + '/bookmarks/')
-    let likeNum = 0;
-    let likeObj = {}
-    let bookmarkObj = {}
-    //set like num
-    await likeRef.once('value').then(function(snapshot) {
-      likeObj = {...snapshot.val()}
-    })
-    if(likeObj[currentUser]){
-      this.setState({liked:likeObj[currentUser]})
-    }
-    for(let like in likeObj){
-      if(likeObj[like]===true){
-        likeNum++
+    if(firebase.auth().currentUser){
+      const currentUser = firebase.auth().currentUser.uid
+      const likeRef = firebase.database().ref('/frames/' + this.props.frameID + '/likes/')
+      const bookmarkRef = firebase.database().ref('/users/' + currentUser + '/bookmarks/')
+      let likeNum = 0;
+      let likeObj = {}
+      let bookmarkObj = {}
+      //set like num
+      await likeRef.once('value').then(function(snapshot) {
+        likeObj = {...snapshot.val()}
+      })
+      if(likeObj[currentUser]){
+        this.setState({liked:likeObj[currentUser]})
       }
-    }
-    this.setState({numberOfLikes:likeNum})
-    //set bookmarked
-    await bookmarkRef.once('value').then(function(snapshot) {
-      bookmarkObj = {...snapshot.val()}
-      console.log(snapshot.val())
-    })
-    if(bookmarkObj[this.props.frameID]){
-      this.setState({bookmarked:bookmarkObj[this.props.frameID]})
+      for(let like in likeObj){
+        if(likeObj[like]===true){
+          likeNum++
+        }
+      }
+      this.setState({numberOfLikes:likeNum})
+      //set bookmarked
+      await bookmarkRef.once('value').then(function(snapshot) {
+        bookmarkObj = {...snapshot.val()}
+      })
+      if(bookmarkObj[this.props.frameID]){
+        this.setState({bookmarked:bookmarkObj[this.props.frameID]})
+      }
     }
   }
 
@@ -128,7 +129,6 @@ class Frame extends Component {
   }
 
   render() {
-    console.log(this.state.bookmarked)
     return (
       <div className='frameDiv' key={this.props.frameID}>
         <Link to={`/frame/${this.props.frameID}`}>

@@ -129,6 +129,7 @@ class Frame extends Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <div className='frameDiv' key={this.props.frameID}>
         <Link to={`/frame/${this.props.frameID}`}>

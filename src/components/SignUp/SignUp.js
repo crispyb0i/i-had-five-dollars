@@ -2,7 +2,6 @@ import React, { useCallback } from 'react'
 import { withRouter } from 'react-router'
 import firebaseConfig from "../../firebase"
 import firebase from 'firebase'
-import defaultAvatar from '../../assets/default-avatar.jpg'
 import './SignUp.css'
 
 

@@ -10,26 +10,35 @@ class Profile extends Component {
     user: firebase.database().ref('users/' + firebase.auth().currentUser.uid),
     page: 'default',
     posts: '',
+    bookmarks: '',
     avatar: defaultAvatar,
   }
 
   async componentDidMount() {
-    let userPosts = {}
     const framesRef = firebase.database().ref('/frames/')
+    const userBookmarksRef = firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/bookmarks')
+    let bookmarked = []
+
     await framesRef.orderByChild('createdBy').equalTo(firebase.auth().currentUser.uid).on('value',
      snapshot => {
-      userPosts = snapshot.val()
-      this.setState({posts:userPosts})
+      this.setState({posts:snapshot.val()})
     })
+    await userBookmarksRef.on('value',
+     snapshot => {
+      Object.keys(snapshot.val()).map(key => framesRef.child(key).on('value',snapshot => {
+        let obj = snapshot.val()
+        obj.id=key
+        bookmarked.push(obj)
+      })) 
+    })
+    this.setState({bookmarks:bookmarked})
   }
 
   handleNav = (e) => {
     this.setState({page:e.currentTarget.getAttribute('value')})
-    console.log(this.state.page)
   }
 
   renderNav = () => {
-    console.log(this.state.page)
     switch (this.state.page) {
       case 'posts':
         let posts = []
@@ -60,16 +69,30 @@ class Profile extends Component {
               }
             </div>
           </div>
-          )    
+          )
+        case 'saved':
+          let bookmarks = []
+          for(let bookmark of this.state.bookmarks){
+            bookmarks.push(
+            <Frame 
+              key={bookmark.id}
+              frameID={bookmark.id}
+              name={bookmark.name}
+              imageURL={bookmark.imageURL}
+              imageName={bookmark.imageName}
+              message={bookmark.message}
+              createdBy={bookmark.createdBy}
+            />)
+          }
+          return (
+            bookmarks.map(bookmark => bookmark)
+          )
       default :
         return null
     }
   }
 
-
   render() {
-    
-
     return (
       <div className='profileContainer'>
         <h1 className='header'>PROFILE</h1>
@@ -80,9 +103,8 @@ class Profile extends Component {
             <li onClick={(e)=>this.handleNav(e)} value='settings'>Settings</li>
           </ul>
         </nav>
-        <img className='avatarPic' src={defaultAvatar}/>
+        <img className='avatarPic' alt='profile image' src={defaultAvatar}/>
         {this.renderNav()}
-       
         <button className='signOutButton' onClick={() => firebaseConfig.auth().signOut()}>Sign out</button>
       </div>
     )

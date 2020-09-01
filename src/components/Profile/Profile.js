@@ -26,12 +26,14 @@ class Profile extends Component {
     await userBookmarksRef.on('value',
      snapshot => {
       Object.keys(snapshot.val()).map(key => framesRef.child(key).on('value',snapshot => {
-        let obj = snapshot.val()
-        obj.id=key
-        bookmarked.push(obj)
-      })) 
+        // console.log(snapshot.val())
+        // snapshot.val().id=key
+        // console.log(snapshot.val())
+        // bookmarked.push(obj)
+      }))
     })
     this.setState({bookmarks:bookmarked})
+    console.log(this.state)
   }
 
   handleNav = (e) => {
@@ -44,7 +46,7 @@ class Profile extends Component {
         let posts = []
         for(let key in this.state.posts){
           posts.push(
-            <Frame 
+            <Frame
               key={key}
               frameID={key}
               name={this.state.posts[key].name}
@@ -74,7 +76,7 @@ class Profile extends Component {
           let bookmarks = []
           for(let bookmark of this.state.bookmarks){
             bookmarks.push(
-            <Frame 
+            <Frame
               key={bookmark.id}
               frameID={bookmark.id}
               name={bookmark.name}
@@ -85,7 +87,7 @@ class Profile extends Component {
             />)
           }
           return (
-            bookmarks.map(bookmark => bookmark)
+            bookmarks
           )
       default :
         return null
@@ -103,7 +105,7 @@ class Profile extends Component {
             <li onClick={(e)=>this.handleNav(e)} value='settings'>Settings</li>
           </ul>
         </nav>
-        <img className='avatarPic' alt='profile image' src={defaultAvatar}/>
+        <img className='avatarPic' alt='profile' src={defaultAvatar}/>
         {this.renderNav()}
         <button className='signOutButton' onClick={() => firebaseConfig.auth().signOut()}>Sign out</button>
       </div>
